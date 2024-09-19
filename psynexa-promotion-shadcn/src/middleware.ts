@@ -1,0 +1,9 @@
+import createMiddleware from 'next-intl/middleware';
+import {routing} from './i18n/routing';
+ 
+export default createMiddleware(routing);
+ 
+export const config = {
+  // Daha spesifik path eşleşmeleri
+  matcher: ['/', '/(en_EN|en_US|tr_TR)/:path*']
+};
