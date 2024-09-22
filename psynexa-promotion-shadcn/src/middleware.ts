@@ -5,5 +5,5 @@ export default createMiddleware(routing);
  
 export const config = {
   // Daha spesifik path eşleşmeleri
-  matcher: ['/', '/(en_EN|en_US|tr_TR)/:path*']
+  matcher: ['/', '/(en|tr)/:path*']
 };

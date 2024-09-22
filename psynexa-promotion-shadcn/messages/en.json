@@ -1,0 +1,125 @@
+{
+  "Header":{
+    "items":[
+      {
+        "label": "Home",
+        "href": "/"
+      },
+      {
+        "label": "About us",
+        "href": "about-us"
+      },
+      {
+        "label":"Solutions",
+        "href":"solutions"
+      },
+      {
+        "label":"FAQ",
+        "href":"faq"
+      },
+      {
+        "label": "Contact",
+        "href": "contact"
+      }
+    ],
+    "button":"Let's Talk"
+  },
+  "HomePage": {
+    "heroCard": {
+      "title": "A BRIDGE THAT TOUCHES YOUR MIND AND OPENS TO THE FUTURE : PSYNEXA",
+      "description": "At Psynexa, we aim to provide innovative solutions to the psychological challenges we face in our daily lives. We know that these issues are often overlooked and become more complex over time. By providing psychological support that is equally accessible and affordable to everyone, we aim to make mental health a right for everyone. With Psynexa, experience personalized and accessible support, regardless of location or financial constraints.",
+      "blackButton": "Learn More",
+      "whiteButton": "Watch Video"
+    },
+    "aboutCard":{
+      "card":"About Us",
+      "title": "Push the Limits, Realize Dreams.",
+      "loadindText": "Psynexa was founded in November 2022 and has achieved remarkable success in a short time. It won the second prize in the Technological Applications in Psychology competition at TEKNOFEST held in Istanbul in April 2023. Then, Ahmet and Halil İbrahim from our team won the fifth place in the health and wellness category at the TEKNOFEST Izmir entrepreneurship competition in September 2023. These successes reinforced our belief in the future of Psynexa and motivated us to take bigger steps.",
+      "text": "We started our journey as a team of 9 people and by continuously improving our product, we achieved fifth place at TEKNOFEST in October 2023. In July 2024, we won the Seal of Excellence within the scope of the 2024-1 BİGG Investment Call organized by the Scientific and Technological Research Council of Turkey (TÜBİTAK). This award proved the quality and potential of our initiative at an international level. In addition, our finalistship in the Technological Applications in Psychology category at TEKNOFEST 2024 with 92.67 points was a concrete indicator of our success. As Psynexa, we continue to offer innovative solutions and constantly improve."
+    },
+    "solutionsCard": {
+      "card": "Our Solutions",
+      "title": "Push the Limits, Realize Dreams.",
+      "description": "Psynexa aims to provide an environment for everyone who wants to receive mental support services to understand themselves better.",
+      "content": [
+        {
+          "title": "Nexabot",
+          "description": "Nexabot communicates with people and helps them achieve emotional balance through meditations, exercises, and objective tests."
+        },
+        {
+          "title": "Interpreting Smartwatch Data",
+          "description": "People's smartwatch data is analyzed in detail by artificial intelligence to measure their tendency towards psychological disorders."
+        },
+        {
+          "title": "Artificial Intelligence-Powered Online Therapy",
+          "description": "It analyzes the person's data with artificial intelligence and presents it to the psychologist, aiming to optimize the therapy process."
+        }
+      ]
+    },
+    "videoCard":{
+      "title":"Meet Us to Understand Your Mind",
+      "description": "Get to know Psynexa better by watching our promotional video."
+    },
+    "faqCard":{
+      "title": "Got Questions? We've Got Answers!",
+      "content":[
+        {
+          "question": "Is Psynexa safe?",
+          "answer": "Psynexa protects user relationships and analysis with end-to-end encryption. This data is only shared with the user’s personal psychologist with their permission."
+        },
+        {
+          "question": "What kind of analysis does artificial intelligence perform?",
+          "answer": "Artificial intelligence analyzes in detail the audio, textual and visual data from the conversations with Nexabot, and this data is transmitted to the psychologist only at the user's request."
+        }
+      ]
+    },
+    "conectionCard":{
+      "title": "Be the first to know when we launch",
+      "description": "Leave your email address to get more information and contact us."
+    },
+    "footer":{
+      "logoDescription": "Lorem ipsum dolor sit amet consectetur. Et eu tempor nam congue sollicitudin. Congue sem elementum eget facilisis. Ipsum nisl fusce arcu scelerisque phasellus. Lorem ipsum dolor sit amet consectetur. Et eu tempor nam congue sollicitudin. Congue sem elementum eget facilisis. Ipsum nisl fusce arcu scelerisque phasellus. Lorem ipsum dolor sit amet consectetur. Et eu tempor nam congue sollicitudin. Congue sem elementum eget facilisis. Ipsum nisl fusce arcu scelerisque phasellus ",
+      "navigateTitle": "Explare",
+      "legalTitle": "Legal",
+      "contactTitle": "Let's Contact",
+      "legalContent": [
+        {
+          "title": "Company and Branding",
+          "href": "/en/company-branding"
+        },
+        {
+          "title": "Help Center",
+          "href": "/en/help-center"
+        },
+        {
+          "title": "Features",
+          "href": "/en/features"
+        },
+        {
+          "title": "Privacy Policy",
+          "href": "/en/privacy-policy"
+        },
+        {
+          "title": "Terms & Conditions",
+          "href": "/en/terms-of-service"
+        }
+      ],
+      "contactContent":[
+        {
+          "title": "Email",
+          "content": "psynexa@gmail.com"
+        },
+        {
+          "title": "Phone",
+          "content": "+1 (123) 456-7890"
+        }
+      ]
+    }
+  },
+  "Cookies":{
+    "title": "Cookies",
+    "description": "We use cookies to enhance your experience, analyze site traffic and deliver personalized content. Read our Cookie Policy.",
+    "accept":"Accept",
+    "reject": "Reject"
+  }
+}

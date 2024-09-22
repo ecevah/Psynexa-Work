@@ -1,0 +1,15 @@
+.title {
+    background: linear-gradient(90deg, #0A6EBD -24.79%, #F5F5F7 133.38%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    color: transparent;
+}
+.videoCard {
+    border-radius: 32px;
+    border: 0.3px solid transparent;
+    background: 
+    linear-gradient(262.62deg, #B3D4FC -8.94%, rgba(10, 110, 189, 0.4) 105.51%);
+    background-clip: padding-box, border-box;
+    background-origin: padding-box, border-box;
+}

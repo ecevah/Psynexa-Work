@@ -1,0 +1,13 @@
+export const ARROW_BLACK_45 = "/icons/arrow-black-45.svg";
+export const ARROW_WHITE = "/icons/arrow-white.svg";
+export const ABOUT_ICON = "/icons/about-icon.svg";
+export const FAQ_ICON = "/icons/faq-icon.svg";
+export const HAND_ICON = "/icons/hand-icon.svg";
+export const X_ICON = "/icons/x.svg";
+export const INSTAGRAM_ICON = "/icons/instagram.svg";
+export const LINKEDIN_ICON = "/icons/linkedin.svg";
+export const FACEBOOK_ICON = "/icons/facebook.svg";
+export const YOUTUBE_ICON = "/icons/youtube.svg";
+export const WATCH = "/icons/watch.svg";
+export const ROBOT = "/icons/robot.svg";
+export const COMPUTER = "/icons/computer.svg";
