@@ -6,7 +6,10 @@ import { ARROW_WHITE, COMPUTER, ROBOT, WATCH } from "@/constant/icon_constant";
 export default function SolutionsItem({ title, description, index }) {
   const icons = [ROBOT, WATCH, COMPUTER];
   return (
-    <div className={`${styles.solutionsCard} flex flex-col `}>
+    <div
+      className={`${styles.solutionsCard} flex flex-col `}
+      data-aos="fade-up"
+    >
       <div
         className={`${styles.solutionsCardIcon} flex justify-center items-center`}
       >

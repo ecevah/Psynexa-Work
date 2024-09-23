@@ -29,10 +29,7 @@ export default function Solutions() {
             {items.description}
           </div>
         </div>
-        <div
-          className="grid max-[865px]:hidden xl:grid-cols-3 grid-cols-2 gap-10 justify-items-center"
-          data-aos="zoom-in"
-        >
+        <div className="grid max-[865px]:hidden xl:grid-cols-3 grid-cols-2 gap-10 justify-items-center">
           {items.content.map((item, index) => (
             <div
               key={index}
@@ -51,10 +48,7 @@ export default function Solutions() {
             </div>
           ))}
         </div>
-        <div
-          className="hidden max-[865px]:flex items-center justify-center"
-          data-aos="zoom-in"
-        >
+        <div className="hidden max-[865px]:flex items-center justify-center">
           <SolutionsCarousel data={items.content} />
         </div>
       </div>
