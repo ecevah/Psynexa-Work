@@ -12,7 +12,7 @@ export default function Solutions() {
     <>
       <div
         className="flex flex-col !pt-[144px] !pb-[158px] layout"
-        id="solutions"
+        id="products"
       >
         <AquaCard title={items.card} />
         <div className="flex md:flex-row flex-col w-full justify-between mt-[20px] max-[865px]:mb-[72px] mb-[152px] md:items-center items-start">

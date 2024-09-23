@@ -52,14 +52,15 @@ export default function Footer() {
               {items.legalTitle}
             </div>
             {items.legalContent.map((item, index) => (
-              <Link
+              <div
+                target="_blank"
                 href={item.href}
                 key={index}
                 className="text-[17px] font-normal leading-normal text-[#0B1215] hover:text-[#0A6EBD] mb-[20px]"
                 data-aos="fade-up"
               >
                 {item.title}
-              </Link>
+              </div>
             ))}
           </div>
           <div className="lg:flex hidden flex-col ml-[50px]">
@@ -99,6 +100,7 @@ export default function Footer() {
         </div>
         <div className="flex lg:hidden flex-row ">
           <Link
+            target="_blank"
             href={"https://www.youtube.com/@Psynexa"}
             className="w-[48px] h-[48px] rounded-full flex justify-center items-center bg-[#EEF5FF] p-[12px] mr-[16px]"
             data-aos="fade-up"
@@ -106,13 +108,15 @@ export default function Footer() {
             <Image src={YOUTUBE_ICON} alt="facebook" width={24} height={24} />
           </Link>
           {FOOTER_SOCIAL_ICONS.map((item, index) => (
-            <div
+            <Link
+              href={item.link}
+              target="_blank"
               key={`Social Icon ${index}`}
               data-aos="fade-up"
               className="w-[48px] h-[48px] rounded-full flex justify-center items-center bg-[#EEF5FF] p-[12px] mx-[16px]"
             >
               <Image src={item.icon} alt="icon" width={24} height={24} />
-            </div>
+            </Link>
           ))}
         </div>
       </div>

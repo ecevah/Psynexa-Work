@@ -6,6 +6,7 @@ import { HEADER_WHITE_LOGO_SVG } from "@/constant/image_constant";
 import { Button } from "@/components/ui/button";
 import { LanguageButton } from "./language_button";
 import { Menu, X } from "lucide-react";
+import { LanguageButtonVertical } from "./language_button_vertical";
 
 export default function Header() {
   const t = useTranslations("Header");
@@ -19,7 +20,6 @@ export default function Header() {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
-  // Prevent body scrolling when the menu is open
   useEffect(() => {
     if (isMenuOpen) {
       document.body.style.overflow = "hidden";
@@ -27,24 +27,23 @@ export default function Header() {
       document.body.style.overflow = "";
     }
 
-    // Clean up on unmount
     return () => {
       document.body.style.overflow = "";
     };
   }, [isMenuOpen]);
 
   return (
-    <header className="flex flex-row justify-between items-center layout z-10 relative">
+    <div className="flex flex-row justify-between items-center relative layout z-10 !overflow-visible">
       <Image
         src={HEADER_WHITE_LOGO_SVG}
         alt="Logo"
         width={220}
         height={56}
-        className=""
+        className="cursor-pointer"
       />
 
       {/* Desktop Navigation */}
-      <div className="hidden lg:flex flex-row xl:px-6 px-4 py-4 rounded-3xl border border-solid border-[#f5f5f500] bg-[#f5f5f51a] backdrop-blur-[17.5px]">
+      <div className="hidden lg:flex flex-row xl:px-6 px-4 rounded-3xl border border-solid border-[#f5f5f500] bg-[#f5f5f51a] backdrop-blur-[17.5px]">
         {items.map((item, index) => (
           <HeaderItem
             key={`Header Item ${index}`}
@@ -75,6 +74,7 @@ export default function Header() {
               </Button>
               {items.map((item, index) => (
                 <button
+                  key={index}
                   onClick={() => {
                     setIsMenuOpen(false);
                     handleScroll(item.href);
@@ -114,8 +114,8 @@ export default function Header() {
         >
           {t("button")}
         </Button>
-        <LanguageButton />
+        <LanguageButtonVertical />
       </div>
-    </header>
+    </div>
   );
 }

@@ -9,8 +9,8 @@
         "href": "about-us"
       },
       {
-        "label":"Çözümler",
-        "href":"solutions"
+        "label":"Ürünler",
+        "href":"products"
       },
       {
         "label":"S.S.S.",
@@ -25,21 +25,21 @@
   },
   "HomePage": {
     "heroCard": {
-      "title": "Zihinsel Sağlık Senin Ellerinde",
-      "description": "Psynexa olarak, günlük yaşantımızda karşılaştığımız psikolojik zorluklara yenilikçi çözümler sunmayı amaçlıyoruz. Bu sorunların genellikle göz ardı edildiğini ve zamanla karmaşık hale geldiğini biliyoruz. Herkesin eşit şekilde erişebileceği ve uygun fiyatlı psikolojik destek sunarak, ruhsal sağlığı herkes için bir hak haline getirmeyi hedefliyoruz. Psynexa ile, yer veya maddi kısıtlamalardan bağımsız olarak, kişiselleştirilmiş ve erişilebilir bir destek deneyimi yaşayın.",
+      "title": "ZİHNİNİZE DOKUNAN GELECEĞE AÇILAN BİR KÖPRÜ: PSYNEXA",
+      "description": "Psynexa, zihinsel sağlığı herkes için erişilebilir ve uygun fiyatlı bir hak haline getirmeyi amaçlıyor. Kişiselleştirilmiş ve yenilikçi psikolojik destekle, ruhsal sağlığınızı iyileştirin. Maddi engeller olmadan, herkes için daha iyi bir yaşam mümkün!",
       "blackButton": "Daha Fazla",
       "whiteButton": "Videoyu İzle"
     }, 
     "aboutCard":{
       "card":"Hakkımızda",
       "title": "Duygusal Sınırları Aş, Yeni Ufuklara Yelken Aç",
-      "loadindText": "Psynexa, Kasım 2022'de kuruldu ve kısa sürede dikkat çekici başarılar elde etti. 2023 Nisan ayında İstanbul'da düzenlenen TEKNOFEST'te Psikolojide Teknolojik Uygulamalar yarışmasında ikincilik ödülü kazandı. Ardından, takımımızdan Ahmet ve Halil İbrahim, 2023 Eylül ayında TEKNOFEST İzmir girişimcilik yarışmasında sağlık ve iyi yaşam kategorisinde beşincilik elde etti. Bu başarılar, Psynexa'nın geleceğine olan inancımızı pekiştirdi ve bizi daha büyük adımlar atmaya motive etti.",
+      "loadindText": "Kasım 2022'de kurulan Psynexa, kısa sürede önemli başarılara imza attı. 2023'te kazandığımız TEKNOFEST ödülleri ve TÜBİTAK tarafından verilen Mükemmeliyet Mührü, inovasyon ve kaliteye olan bağlılığımızı teyit etti. Dinamik ekibimizle, teknolojiyi ruh sağlığına entegre ederek herkes için erişilebilir çözümler üretmeye odaklanıyoruz. Gelişmeye ve sınırları zorlamaya kararlıyız.",
       "text": "Yolculuğumuza 9 kişilik bir ekip olarak başladık ve ürünümüzü sürekli olarak geliştirerek, 2023 Ekim ayında TEKNOFEST'te beşincilik elde ettik. Temmuz 2024'te, Türkiye Bilimsel ve Teknolojik Araştırma Kurumu (TÜBİTAK) tarafından düzenlenen 2024-1 BİGG Yatırım Çağrısı kapsamında Mükemmeliyet Mührü'nü kazandık. Bu ödül, girişimimizin kalitesini ve potansiyelini uluslararası düzeyde kanıtladı. Ayrıca, TEKNOFEST 2024'te Psikolojide Teknolojik Uygulamalar kategorisinde 92.67 puan alarak finale kalmamız, başarılarımızın somut bir göstergesi oldu. Psynexa olarak, yenilikçi çözümler sunmaya ve sürekli gelişmeye devam ediyoruz."
     },
     "solutionsCard": {
-      "card": "Çözümümüz",
-      "title": "Kendinin farkına var",
-      "description": "Psynexa, mental destek hizmeti almak isteyen herkese, kendilerini daha iyi anlamaları için bir ortam sunmayı amaçlar.",
+      "card": "Ürünler",
+      "title": "Kendinin Farkına Var",
+      "description": "",
       "content": [
         {
           "title": "Nexabot",
@@ -56,7 +56,7 @@
       ]
     },
     "videoCard":{
-      "title":"Kendini keşfetmek için daha fazla bilgi al.",
+      "title":"Kendini Keşfetmek İçin Daha Fazla Bilgi Al.",
       "description": "Tanıtım videomuzu izleyerek Psynexa’yı daha yakından tanıyın."
     },
     "faqCard":{
@@ -110,7 +110,7 @@
         },
         {
           "title": "Phone",
-          "content": "+1 (123) 456-7890"
+          "content": "+90 (542) 135 49 28"
         }
       ]
     }

@@ -21,17 +21,18 @@ export default function VideoCard() {
           {items.description}
         </div>
         <div
-          className={`${styles.videoCard} w-full max-h-[440px] rounded-[32px] overflow-hidden `}
+          className={`${styles.videoCard} w-full rounded-[32px] overflow-hidden`}
           data-aos="flip-up"
         >
           <iframe
             width="100%"
-            height="440"
+            height="100%"
             src="https://www.youtube.com/embed/GsPH_GagYSY"
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
+            className="max-[800px]:min-h-[440px] min-h-[600px] lg:min-h-[700px]"
           ></iframe>
         </div>
       </div>

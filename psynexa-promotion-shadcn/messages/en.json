@@ -10,8 +10,8 @@
         "href": "about-us"
       },
       {
-        "label":"Solutions",
-        "href":"solutions"
+        "label":"Products",
+        "href":"products"
       },
       {
         "label":"FAQ",
@@ -26,21 +26,21 @@
   },
   "HomePage": {
     "heroCard": {
-      "title": "A BRIDGE THAT TOUCHES YOUR MIND AND OPENS TO THE FUTURE : PSYNEXA",
-      "description": "At Psynexa, we aim to provide innovative solutions to the psychological challenges we face in our daily lives. We know that these issues are often overlooked and become more complex over time. By providing psychological support that is equally accessible and affordable to everyone, we aim to make mental health a right for everyone. With Psynexa, experience personalized and accessible support, regardless of location or financial constraints.",
+      "title": "A BRIDGE TO THE FUTURE THAT TOUCHES YOUR MIND: PSYNEXA",
+      "description": "Psynexa aims to make mental health an accessible and affordable right for everyone. Improve your mental health with personalized and innovative psychological support. Without financial barriers, a better life is possible for everyone!",
       "blackButton": "Learn More",
       "whiteButton": "Watch Video"
     },
     "aboutCard":{
       "card":"About Us",
       "title": "Push the Limits, Realize Dreams.",
-      "loadindText": "Psynexa was founded in November 2022 and has achieved remarkable success in a short time. It won the second prize in the Technological Applications in Psychology competition at TEKNOFEST held in Istanbul in April 2023. Then, Ahmet and Halil İbrahim from our team won the fifth place in the health and wellness category at the TEKNOFEST Izmir entrepreneurship competition in September 2023. These successes reinforced our belief in the future of Psynexa and motivated us to take bigger steps.",
+      "loadindText": "Founded in November 2022, Psynexa has achieved significant success in a short time. The TEKNOFEST awards we won in 2023 and the Seal of Excellence awarded by TÜBİTAK confirmed our commitment to innovation and quality. With our dynamic team, we focus on creating accessible solutions for everyone by integrating technology into mental health. We are determined to evolve and push the boundaries.",
       "text": "We started our journey as a team of 9 people and by continuously improving our product, we achieved fifth place at TEKNOFEST in October 2023. In July 2024, we won the Seal of Excellence within the scope of the 2024-1 BİGG Investment Call organized by the Scientific and Technological Research Council of Turkey (TÜBİTAK). This award proved the quality and potential of our initiative at an international level. In addition, our finalistship in the Technological Applications in Psychology category at TEKNOFEST 2024 with 92.67 points was a concrete indicator of our success. As Psynexa, we continue to offer innovative solutions and constantly improve."
     },
     "solutionsCard": {
-      "card": "Our Solutions",
-      "title": "Push the Limits, Realize Dreams.",
-      "description": "Psynexa aims to provide an environment for everyone who wants to receive mental support services to understand themselves better.",
+      "card": "Products",
+      "title": "Become Aware of Yourself",
+      "description": "",
       "content": [
         {
           "title": "Nexabot",
@@ -57,7 +57,7 @@
       ]
     },
     "videoCard":{
-      "title":"Meet Us to Understand Your Mind",
+      "title":"Learn More to Discover Yourself",
       "description": "Get to know Psynexa better by watching our promotional video."
     },
     "faqCard":{
@@ -111,7 +111,7 @@
         },
         {
           "title": "Phone",
-          "content": "+1 (123) 456-7890"
+          "content": "+90 (542) 135 49 28"
         }
       ]
     }

@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { ARROW_BLACK_45, ARROW_WHITE } from "@/constant/icon_constant";
+import Link from "next/link";
 
 export default function HeroCard() {
   const t = useTranslations("HomePage");
@@ -39,7 +40,7 @@ export default function HeroCard() {
             className="bg-black md:w-[198px] w-[164px] h-[48px] md:h-[56px] rounded-full"
             onClick={() => handleScroll("about-us")}
           >
-            <div className="flex flex-row items-center justify-between">
+            <div className="flex flex-row items-center justify-between px-[16px]">
               <div className="text-white md:text-[20px] text-[14px] font-semibold leading-snug">
                 {items.blackButton}
               </div>
@@ -52,11 +53,12 @@ export default function HeroCard() {
               />
             </div>
           </Button>
-          <Button
-            asChild
+          <Link
+            target="_blank"
             className="border-[1px] border-solid border-white md:w-[198px] w-[164px] h-[48px] md:h-[56px] rounded-full bg-transparent ml-[12px] md:ml-[20px] max-[364px]:ml-0 max-[364px]:mt-[20px]"
+            href={"https://www.youtube.com/watch?v=GsPH_GagYSY"}
           >
-            <div className="flex flex-row items-center justify-between">
+            <div className="flex flex-row items-center justify-between h-full px-[16px]">
               <div className="text-white md:text-[20px] text-[14px] font-semibold leading-snug">
                 {items.whiteButton}
               </div>
@@ -68,7 +70,7 @@ export default function HeroCard() {
                 alt="arrow-white"
               />
             </div>
-          </Button>
+          </Link>
         </div>
       </div>
     </div>

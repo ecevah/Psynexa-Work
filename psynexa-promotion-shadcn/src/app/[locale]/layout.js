@@ -23,6 +23,7 @@ export default async function RootLayout({ children, params: { locale } }) {
     <html lang={locale}>
       <head>
         <link rel="icon" type="image/svg" href="./favicon.svg" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <Script
           async
           src="https://www.googletagmanager.com/gtag/js?id=G-FTCHWV4BPL"
