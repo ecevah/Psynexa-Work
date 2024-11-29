@@ -1,0 +1,106 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body{
+  padding: 0px;
+  margin: 0px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.bgWhiteToTransparentUp{
+  background: linear-gradient(to top, white, rgba(255, 255, 255, 0));
+}
+
+.scrollHidden {
+  scrollbar-width: none;
+}
+
+.scrollHidden::-webkit-scrollbar {
+  display: none;
+}
+
+.sessionItem{
+  width: calc(100% - 10px);
+}
+
+.bgRadialGradientAndShadow{
+  background: radial-gradient(circle, #0C82DCFF, #085998FF);
+}
+
+.bgWhiteToTransparentUpChatbot {
+  background: linear-gradient(to top, #F3F6FB 0%, #F3F6FB 50%, rgba(255, 255, 255, 0) 100%);
+}
+
+.glassmorphism{
+  background: #767FFC16;
+  backdrop-filter: blur( 7px );
+  -webkit-backdrop-filter: blur( 7px );
+  border-radius: 10px;
+  padding: 15px;
+  margin-top: 20px;
+}
+
+.login-container,
+.register-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: white;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-container h2,
+.register-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  font-weight: 700;
+  font-size: 25px;
+}
+
+.login-container input,
+.register-container input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.login-container button,
+.register-container button {
+  width: 100%;
+  padding: 10px;
+  background-color: #0a6ebd;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.login-container button:hover,
+.register-container button:hover {
+  background-color: #084b8a;
+}
+
+.login-container p,
+.register-container p {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.login-container .link,
+.register-container .link {
+  color: #0a6ebd;
+  cursor: pointer;
+}
+
+.login-container .link:hover,
+.register-container .link:hover {
+  color: #084b8a;
+}

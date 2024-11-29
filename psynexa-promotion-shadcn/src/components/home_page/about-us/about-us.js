@@ -15,19 +15,16 @@ export default function AboutUs() {
     <>
       <div className="overflow-hidden">
         <div className={`${styles.layout} relative`} id="about-us">
-          <div className="flex flex-col !pt-[128px] !pb-[160px] max-[1160px]:!pt-[48px] max-[1160px]:!pb-[401px]">
+          <div className="flex flex-col !pt-[128px] max-[1160px]:!pt-[48px] ">
             <AquaCard title={items.card} />
-            <div ref={ref}>
+            <div ref={ref} className="pb-[240px] max-[1160px]:pb-[401px]">
               <div
                 className="md:text-[50px] text-[36px] font-bold leading-[101%] mt-[20px] mb-[32px] max-w-[361px]"
                 data-aos="fade-right"
               >
                 {items.title}
               </div>
-              <div
-                className="flex flex-row items-center "
-                data-aos="fade-right"
-              >
+              <div className="flex flex-row items-center" data-aos="fade-right">
                 <Image
                   src={ABOUT_ICON}
                   width={14}

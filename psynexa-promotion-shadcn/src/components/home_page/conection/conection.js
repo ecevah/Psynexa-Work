@@ -48,8 +48,8 @@ export default function Conection() {
         data-aos="fade-right"
         id="conection"
       >
-        <div className="rain front-row z-[100]"></div>
-        <div className="rain back-row z-[100]"></div>
+        <div className="rain front-row z-[100] hidden"></div>
+        <div className="rain back-row z-[100] hidden"></div>
         <div className="layout bg-color-white-list pl-[24px] pt-[24px] pb-[24px] relative rounded-[32px] flex flex-row justify-between items-center z-[102]">
           <div className="flex flex-col px-[20px] py-[20px]">
             <div className="text-[36px] leading-[40px] sm:text-[50px] sm:leading-[54px] font-bold text-white max-w-[530px] w-[85%]">

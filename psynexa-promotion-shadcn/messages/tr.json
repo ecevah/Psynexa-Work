@@ -1,124 +1,124 @@
 {"Header":{
-    "items":[
+  "items":[
+    {
+      "label": "Anasayfa",
+      "href": "/"
+    },
+    {
+      "label": "Hakkımızda",
+      "href": "about-us"
+    },
+    {
+      "label":"Ürün",
+      "href":"products"
+    },
+    {
+      "label":"S.S.S.",
+      "href":"faq"
+    },
+    {
+      "label": "İletişim",
+      "href": "contact"
+    }
+  ],
+  "button":"Bize Ulaşın"
+},
+"HomePage": {
+  "heroCard": {
+    "title": "ZİHNİNİZE DOKUNAN GELECEĞE AÇILAN BİR KÖPRÜ: PSYNEXA",
+    "description": "Psynexa, zihinsel sağlığı herkes için erişilebilir ve uygun fiyatlı bir hak haline getirmeyi amaçlıyor. Kişiselleştirilmiş ve yenilikçi psikolojik destekle, ruhsal sağlığınızı iyileştirin. Maddi engeller olmadan, herkes için daha iyi bir yaşam mümkün!",
+    "blackButton": "Daha Fazla",
+    "whiteButton": "Videoyu İzle"
+  }, 
+  "aboutCard":{
+    "card":"Hakkımızda",
+    "title": "Duygusal Sınırları Aş, Yeni Ufuklara Yelken Aç",
+    "loadindText": "Kasım 2022'de kurulan Psynexa, kısa sürede önemli başarılara imza attı. 2023'te kazandığımız TEKNOFEST ödülleri ve TÜBİTAK tarafından verilen Mükemmeliyet Mührü, inovasyon ve kaliteye olan bağlılığımızı teyit etti. Dinamik ekibimizle, teknolojiyi ruh sağlığına entegre ederek herkes için erişilebilir çözümler üretmeye odaklanıyoruz. Gelişmeye ve sınırları zorlamaya kararlıyız.",
+    "text": ""
+  },
+  "solutionsCard": {
+    "card": "Ürünler",
+    "title": "Kendinin Farkına Var",
+    "description": "",
+    "content": [
       {
-        "label": "Anasayfa",
-        "href": "/"
+        "title": "Nexabot",
+        "description": "Nexabot, kişilerle iletişim kurarak meditasyonlar, egzersizler ve objektif testlerle duygusal dengeyi sağlamaya yardımcı olur."
       },
       {
-        "label": "Hakkımızda",
-        "href": "about-us"
+        "title": "Akıllı Saat Verilerinin Yorumlanması",
+        "description": "Kişilerin akıllı saat verileri yapay zeka tarafından detaylı analiz edilerek, psikolojik rahatsızlıklara olan eğilimleri ölçülür."
       },
       {
-        "label":"Ürünler",
-        "href":"products"
+        "title": "Yapay Zeka Destekli Online Terapi",
+        "description": "Psynexa, kişilere yetkin psikologlarla online terapi yapma imkanı sunar. Aynı zamanda, kişinin verilerini yapay zeka ile analiz ederek psikoloğa sunar ve terapi sürecini optimize etmeyi hedefler."
+      }
+    ]
+  },
+  "videoCard":{
+    "title":"Kendini Keşfetmek İçin Daha Fazla Bilgi Al.",
+    "description": "Tanıtım videomuzu izleyerek Psynexa’yı daha yakından tanıyın."
+  },
+  "faqCard":{
+    "title": "Sıkça Sorulan Sorular",
+    "content":[
+      {
+        "question": "Psynexa güvenli mi?",
+        "answer": "Psynexa, kullanıcı verilerini ve analizlerini uçtan uca şifreleyerek korur. Bu veriler yalnızca kullanıcının izniyle kişisel psikoloğuyla paylaşılır."
       },
       {
-        "label":"S.S.S.",
-        "href":"faq"
+        "question": "Yapay zeka nasıl bir analiz gerçekleştiriyor?",
+        "answer": "Yapay zeka, Nexabot ile yapılan konuşmalardan işitsel, metinsel ve görüntüsel verileri detaylı bir şekilde analiz eder ve bu veriler yalnızca kullanıcının isteği doğrultusunda psikoloğa iletilir."
+      }
+    ]
+  },
+  "conectionCard":{
+    "title": "Lansmanımızı ilk siz öğrenin.",
+    "description": "Daha fazla bilgi almak ve bizimle iletişime geçmek için e-posta adresinizi bırakın."
+  },
+  "footer":{
+    "logoDescription": "Lorem ipsum dolor sit amet consectetur. Et eu tempor nam congue sollicitudin. Congue sem elementum eget facilisis. Ipsum nisl fusce arcu scelerisque phasellus. Lorem ipsum dolor sit amet consectetur. Et eu tempor nam congue sollicitudin. Congue sem elementum eget facilisis. Ipsum nisl fusce arcu scelerisque phasellus. Lorem ipsum dolor sit amet consectetur. Et eu tempor nam congue sollicitudin. Congue sem elementum eget facilisis. Ipsum nisl fusce arcu scelerisque phasellus ",
+    "navigateTitle": "Keşfet",
+    "legalTitle": "Yasal Yükümlülükler",
+    "contactTitle": "İletişim",
+    "legalContent": [
+      {
+        "title": "Şirket ve Markalaşma",
+        "href": "/tr/company-branding"
       },
       {
-        "label": "İletişim",
-        "href": "contact"
+        "title": "Yardım Merkezi",
+        "href": "/tr/help-center"
+      },
+      {
+        "title": "Özellikler",
+        "href": "/tr/features"
+      },
+      {
+        "title": "Gizlilik Politikası",
+        "href": "/tr/privacy-policy"
+      },
+      {
+        "title": "Şartlar ve Koşullar",
+        "href": "/tr/terms-of-service"
       }
     ],
-    "button":"Bize Ulaşın"
-  },
-  "HomePage": {
-    "heroCard": {
-      "title": "ZİHNİNİZE DOKUNAN GELECEĞE AÇILAN BİR KÖPRÜ: PSYNEXA",
-      "description": "Psynexa, zihinsel sağlığı herkes için erişilebilir ve uygun fiyatlı bir hak haline getirmeyi amaçlıyor. Kişiselleştirilmiş ve yenilikçi psikolojik destekle, ruhsal sağlığınızı iyileştirin. Maddi engeller olmadan, herkes için daha iyi bir yaşam mümkün!",
-      "blackButton": "Daha Fazla",
-      "whiteButton": "Videoyu İzle"
-    }, 
-    "aboutCard":{
-      "card":"Hakkımızda",
-      "title": "Duygusal Sınırları Aş, Yeni Ufuklara Yelken Aç",
-      "loadindText": "Kasım 2022'de kurulan Psynexa, kısa sürede önemli başarılara imza attı. 2023'te kazandığımız TEKNOFEST ödülleri ve TÜBİTAK tarafından verilen Mükemmeliyet Mührü, inovasyon ve kaliteye olan bağlılığımızı teyit etti. Dinamik ekibimizle, teknolojiyi ruh sağlığına entegre ederek herkes için erişilebilir çözümler üretmeye odaklanıyoruz. Gelişmeye ve sınırları zorlamaya kararlıyız.",
-      "text": "Yolculuğumuza 9 kişilik bir ekip olarak başladık ve ürünümüzü sürekli olarak geliştirerek, 2023 Ekim ayında TEKNOFEST'te beşincilik elde ettik. Temmuz 2024'te, Türkiye Bilimsel ve Teknolojik Araştırma Kurumu (TÜBİTAK) tarafından düzenlenen 2024-1 BİGG Yatırım Çağrısı kapsamında Mükemmeliyet Mührü'nü kazandık. Bu ödül, girişimimizin kalitesini ve potansiyelini uluslararası düzeyde kanıtladı. Ayrıca, TEKNOFEST 2024'te Psikolojide Teknolojik Uygulamalar kategorisinde 92.67 puan alarak finale kalmamız, başarılarımızın somut bir göstergesi oldu. Psynexa olarak, yenilikçi çözümler sunmaya ve sürekli gelişmeye devam ediyoruz."
-    },
-    "solutionsCard": {
-      "card": "Ürünler",
-      "title": "Kendinin Farkına Var",
-      "description": "",
-      "content": [
-        {
-          "title": "Nexabot",
-          "description": "Nexabot, kişilerle iletişim kurarak meditasyonlar, egzersizler ve objektif testlerle duygusal dengeyi sağlamaya yardımcı olur."
-        },
-        {
-          "title": "Akıllı Saat Verilerinin Yorumlanması",
-          "description": "Kişilerin akıllı saat verileri yapay zeka tarafından detaylı analiz edilerek, psikolojik rahatsızlıklara olan eğilimleri ölçülür."
-        },
-        {
-          "title": "Yapay Zeka Destekli Online Terapi",
-          "description": "Psynexa, kişilere yetkin psikologlarla online terapi yapma imkanı sunar. Aynı zamanda, kişinin verilerini yapay zeka ile analiz ederek psikoloğa sunar ve terapi sürecini optimize etmeyi hedefler."
-        }
-      ]
-    },
-    "videoCard":{
-      "title":"Kendini Keşfetmek İçin Daha Fazla Bilgi Al.",
-      "description": "Tanıtım videomuzu izleyerek Psynexa’yı daha yakından tanıyın."
-    },
-    "faqCard":{
-      "title": "Sıkça Sorulan Sorular",
-      "content":[
-        {
-          "question": "Psynexa güvenli mi?",
-          "answer": "Psynexa, kullanıcı verilerini ve analizlerini uçtan uca şifreleyerek korur. Bu veriler yalnızca kullanıcının izniyle kişisel psikoloğuyla paylaşılır."
-        },
-        {
-          "question": "Yapay zeka nasıl bir analiz gerçekleştiriyor?",
-          "answer": "Yapay zeka, Nexabot ile yapılan konuşmalardan işitsel, metinsel ve görüntüsel verileri detaylı bir şekilde analiz eder ve bu veriler yalnızca kullanıcının isteği doğrultusunda psikoloğa iletilir."
-        }
-      ]
-    },
-    "conectionCard":{
-      "title": "Lansmanımızı ilk siz öğrenin.",
-      "description": "Daha fazla bilgi almak ve bizimle iletişime geçmek için e-posta adresinizi bırakın."
-    },
-    "footer":{
-      "logoDescription": "Lorem ipsum dolor sit amet consectetur. Et eu tempor nam congue sollicitudin. Congue sem elementum eget facilisis. Ipsum nisl fusce arcu scelerisque phasellus. Lorem ipsum dolor sit amet consectetur. Et eu tempor nam congue sollicitudin. Congue sem elementum eget facilisis. Ipsum nisl fusce arcu scelerisque phasellus. Lorem ipsum dolor sit amet consectetur. Et eu tempor nam congue sollicitudin. Congue sem elementum eget facilisis. Ipsum nisl fusce arcu scelerisque phasellus ",
-      "navigateTitle": "Keşfet",
-      "legalTitle": "Yasal Yükümlülükler",
-      "contactTitle": "İletişim",
-      "legalContent": [
-        {
-          "title": "Şirket ve Markalaşma",
-          "href": "/tr/company-branding"
-        },
-        {
-          "title": "Yardım Merkezi",
-          "href": "/tr/help-center"
-        },
-        {
-          "title": "Özellikler",
-          "href": "/tr/features"
-        },
-        {
-          "title": "Gizlilik Politikası",
-          "href": "/tr/privacy-policy"
-        },
-        {
-          "title": "Şartlar ve Koşullar",
-          "href": "/tr/terms-of-service"
-        }
-      ],
-      "contactContent":[
-        {
-          "title": "Email",
-          "content": "psynexa@gmail.com"
-        },
-        {
-          "title": "Phone",
-          "content": "+90 (542) 135 49 28"
-        }
-      ]
-    }
-  },
-  "Cookies":{
-    "title": "Çerezler",
-    "description": "Deneyiminizi geliştirmek, site trafiğini analiz etmek ve kişiselleştirilmiş içerik sunmak için çerezleri kullanıyoruz. Çerez Politikamızı okuyun.",
-    "accept":"Kabul Et",
-    "reject": "Reddet"
+    "contactContent":[
+      {
+        "title": "Email",
+        "content": "psynexa@gmail.com"
+      },
+      {
+        "title": "Phone",
+        "content": "+90 (542) 135 49 28"
+      }
+    ]
   }
+},
+"Cookies":{
+  "title": "Çerezler",
+  "description": "Deneyiminizi geliştirmek, site trafiğini analiz etmek ve kişiselleştirilmiş içerik sunmak için çerezleri kullanıyoruz. Çerez Politikamızı okuyun.",
+  "accept":"Kabul Et",
+  "reject": "Reddet"
+}
 }
