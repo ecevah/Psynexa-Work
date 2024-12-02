@@ -89,12 +89,12 @@ const Register = ({ setToken, setClientId, setClientName, setShowLogin }) => {
           placeholder="E-posta"
         />
         {/* Include username field if required */}
-        {/* <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Kullanıcı Adı"
-      /> */}
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Kullanıcı Adı"
+        />
         <input
           type="password"
           value={password}

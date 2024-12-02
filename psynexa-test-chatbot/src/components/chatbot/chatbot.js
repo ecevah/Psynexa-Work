@@ -52,6 +52,7 @@ const ChatBot = ({
                 sender: "bot",
                 text: decryptedResponse,
                 messageId: msg._id,
+                feedback: msg.feedback, // { status: true/false, desc: "", _id: "id" } veya null
               },
             ];
           })
@@ -64,7 +65,14 @@ const ChatBot = ({
         );
       }
     } catch (error) {
-      console.error("Error fetching messages:", error);
+      console.error("Mesajlar alınırken hata oluştu:", error);
+    }
+  };
+
+  // Geri bildirim değiştiğinde mesajları yeniden çekmek için callback
+  const handleFeedbackChange = () => {
+    if (currentSession.backendSessionId) {
+      fetchMessages(currentSession.backendSessionId);
     }
   };
 
@@ -151,6 +159,7 @@ const ChatBot = ({
                       sender: "bot",
                       text: decryptedResponse,
                       messageId: messageId,
+                      feedback: null, // Başlangıçta geri bildirim yok
                     },
                   ],
                 }
@@ -159,7 +168,7 @@ const ChatBot = ({
         );
       }
     } catch (error) {
-      console.error("Error sending message:", error);
+      console.error("Mesaj gönderilirken hata oluştu:", error);
     } finally {
       setLoading(false);
     }
@@ -174,6 +183,7 @@ const ChatBot = ({
           messages={currentSession.messages}
           token={token}
           clientId={clientId}
+          refreshMessages={handleFeedbackChange} // Geri bildirim değiştiğinde mesajları yenile
         />
       </div>
     </>

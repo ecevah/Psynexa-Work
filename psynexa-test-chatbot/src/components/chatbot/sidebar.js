@@ -20,10 +20,6 @@ export const Sidebar = ({
 }) => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  const hasEmptySession = sessions.some(
-    (session) => session.messages.length === 0
-  );
-
   const sessionListRef = useRef(null);
 
   useEffect(() => {
@@ -69,11 +65,7 @@ export const Sidebar = ({
             alt="nexabot-logo"
             className="ml-[25px] mb-[25px]"
           />
-          <NewSessionButton
-            text="Yeni Sohbet"
-            onClick={addNewSession}
-            disabled={hasEmptySession}
-          />
+          <NewSessionButton text="Yeni Sohbet" onClick={addNewSession} />
         </div>
         <ClearAllSession
           title="Sohbetleriniz"

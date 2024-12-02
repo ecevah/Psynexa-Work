@@ -6,14 +6,14 @@ const SessionListItem = ({ session, isActive, onClick, onDelete }) => {
   return (
     <>
       <div
-        className={`sessionItem flex flex-row items-center justify-start ml-[10px] pl-[10px] pr-[20px] py-[10px] my-[5px] rounded-l-full cursor-pointer hover:bg-[#F3F6FB] hover:text-[#0A6EBD] relative group ${
+        className={`z-0 sessionItem flex flex-row items-center justify-start ml-[10px] pl-[10px] pr-[20px] py-[10px] my-[5px] rounded-l-full cursor-pointer hover:bg-[#F3F6FB] hover:text-[#0A6EBD] relative group ${
           isActive ? "bg-[#F3F6FB] text-[#0A6EBD]" : ""
         }`}
         onClick={onClick}
       >
         <HiOutlineChatBubbleBottomCenterText size={20} />
         <div className="ml-[5px] w-full truncate">
-          {session.messages.length === 0 ? "Yeni Sohbet" : session.name}
+          {session.name === "New Session" ? "Yeni Sohbet" : session.name}
         </div>
         <FaRegTrashAlt
           className={

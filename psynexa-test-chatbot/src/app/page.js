@@ -1,4 +1,3 @@
-// pages/index.js (or app/page.js, depending on your setup)
 "use client";
 import React, { useState, useEffect } from "react";
 import ChatBot from "@/components/chatbot/chatbot";
@@ -7,45 +6,64 @@ import axios from "axios";
 import Login from "@/components/login/login";
 import { HOST_NAME } from "@/config/config";
 import Register from "@/components/register/register";
+import Image from "next/image";
 
 export default function Home() {
   const [sessions, setSessions] = useState([]);
   const [currentSessionId, setCurrentSessionId] = useState(null);
-  const [token, setToken] = useState(
-    typeof window !== "undefined" ? localStorage.getItem("token") : null
-  );
-  const [clientId, setClientId] = useState(
-    typeof window !== "undefined" ? localStorage.getItem("clientId") : null
-  );
-  const [clientName, setClientName] = useState(
-    typeof window !== "undefined" ? localStorage.getItem("clientName") : ""
-  );
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [token, setToken] = useState(null);
+  const [clientId, setClientId] = useState(null);
+  const [clientName, setClientName] = useState("");
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
   const [showLogin, setShowLogin] = useState(true);
 
   useEffect(() => {
-    if (token && clientId) {
-      // Verify the token
-      axios
-        .get(`${HOST_NAME}/protected`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
-        .then((response) => {
-          setIsAuthenticated(true);
-          fetchSessions(clientId, token);
-        })
-        .catch((error) => {
+    if (typeof window !== "undefined") {
+      const storedToken = localStorage.getItem("token");
+      const storedClientId = localStorage.getItem("clientId");
+      const storedClientName = localStorage.getItem("clientName");
+
+      if (storedToken && storedClientId) {
+        setToken(storedToken);
+        setClientId(storedClientId);
+        setClientName(storedClientName);
+      } else {
+        setIsAuthenticated(false);
+      }
+    }
+  }, []);
+
+  useEffect(() => {
+    const authenticate = async () => {
+      if (token && clientId) {
+        try {
+          const response = await axios.get(`${HOST_NAME}/protected`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (response.data.status) {
+            setIsAuthenticated(true);
+            await fetchSessions(clientId, token);
+            if (!currentSessionId) {
+              await addNewSession();
+            }
+          } else {
+            throw new Error("Invalid token");
+          }
+        } catch (error) {
           console.error("Token is invalid or expired", error);
           localStorage.clear();
           setToken(null);
           setClientId(null);
+          setClientName("");
           setIsAuthenticated(false);
-        });
-    } else {
-      setIsAuthenticated(false);
-    }
+        }
+      }
+    };
+
+    authenticate();
   }, [token, clientId]);
 
   const fetchSessions = async (clientId, token) => {
@@ -61,69 +79,94 @@ export default function Home() {
 
       if (response.data.status) {
         const sessionsData = response.data.data.map((session) => ({
-          id: Date.now() + Math.random(),
+          id: session._id,
           backendSessionId: session._id,
           name: session.Title || "Yeni Sohbet",
           messages: [],
         }));
 
         setSessions(sessionsData);
-
-        if (sessionsData.length > 0) {
-          setCurrentSessionId(sessionsData[0].id);
-        } else {
-          addNewSession();
-        }
       }
     } catch (error) {
       console.error("Error fetching sessions:", error);
     }
   };
 
-  const addNewSession = () => {
-    const newSessionId = Date.now() + Math.random();
-    const newSession = {
-      id: newSessionId,
-      name: "Yeni Sohbet",
-      messages: [],
-      backendSessionId: null,
-    };
-    setSessions([...sessions, newSession]);
-    setCurrentSessionId(newSessionId);
-  };
-
-  const clearAllSessions = async () => {
-    for (const session of sessions) {
-      if (session.backendSessionId) {
-        await axios.delete(`${HOST_NAME}/session/${session.backendSessionId}`, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
-      }
-    }
-
-    const newSession = {
-      id: Date.now() + Math.random(),
-      name: "Yeni Sohbet",
-      messages: [],
-      backendSessionId: null,
-    };
-    setSessions([newSession]);
-    setCurrentSessionId(newSession.id);
-  };
-
-  const deleteSession = async (sessionId) => {
-    const sessionToDelete = sessions.find((s) => s.id === sessionId);
-    if (sessionToDelete && sessionToDelete.backendSessionId) {
-      await axios.delete(
-        `${HOST_NAME}/session/${sessionToDelete.backendSessionId}`,
+  const addNewSession = async () => {
+    try {
+      const response = await axios.post(
+        `${HOST_NAME}/session`,
+        {
+          Client_ID: clientId,
+          Device: "web",
+        },
         {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         }
       );
+
+      if (response.data.status) {
+        const newBackendSessionId = response.data.data._id;
+        const newSession = {
+          id: newBackendSessionId,
+          backendSessionId: newBackendSessionId,
+          name: "Yeni Sohbet",
+          messages: [],
+        };
+        setSessions((prevSessions) => [newSession, ...prevSessions]);
+        setCurrentSessionId(newBackendSessionId);
+      } else {
+        console.error("Failed to create a new session");
+      }
+    } catch (error) {
+      console.error("Error adding new session:", error);
+    }
+  };
+
+  const clearAllSessions = async () => {
+    for (const session of sessions) {
+      if (session.backendSessionId) {
+        try {
+          await axios.delete(
+            `${HOST_NAME}/session/${session.backendSessionId}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+        } catch (error) {
+          console.error(
+            `Error deleting session ${session.backendSessionId}:`,
+            error
+          );
+        }
+      }
+    }
+
+    await addNewSession();
+  };
+
+  const deleteSession = async (sessionId) => {
+    const sessionToDelete = sessions.find((s) => s.id === sessionId);
+    if (sessionToDelete && sessionToDelete.backendSessionId) {
+      try {
+        await axios.delete(
+          `${HOST_NAME}/session/${sessionToDelete.backendSessionId}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      } catch (error) {
+        console.error(
+          `Error deleting session ${sessionToDelete.backendSessionId}:`,
+          error
+        );
+      }
     }
 
     setSessions((prevSessions) => {
@@ -132,28 +175,13 @@ export default function Home() {
       );
 
       if (updatedSessions.length === 0) {
-        const newSession = {
-          id: Date.now() + Math.random(),
-          name: "Yeni Sohbet",
-          messages: [],
-          backendSessionId: null,
-        };
-        setCurrentSessionId(newSession.id);
-        return [newSession];
+        addNewSession();
+        return [];
       } else {
-        return updatedSessions;
-      }
-    });
-
-    setCurrentSessionId((prevCurrentSessionId) => {
-      if (prevCurrentSessionId === sessionId) {
-        if (sessions.length > 0) {
-          return sessions[0].id;
-        } else {
-          return null;
+        if (sessionId === currentSessionId) {
+          setCurrentSessionId(updatedSessions[0].id);
         }
-      } else {
-        return prevCurrentSessionId;
+        return updatedSessions;
       }
     });
   };
@@ -168,8 +196,13 @@ export default function Home() {
 
   return (
     <>
-      {isAuthenticated ? (
-        <div className="w-full h-[100vh] bg-[#F3F6FB] flex flex-row md1368:flex-col justify-start items-start p-[15px] relative">
+      {isAuthenticated === null ? (
+        <div className="flex flex-col items-center justify-center w-full h-screen">
+          <div className="loader mb-[10px]"></div>
+          <Image src="/logo.svg" width={200} height={80} alt="logo" />
+        </div>
+      ) : isAuthenticated ? (
+        <div className="w-full h-screen bg-[#F3F6FB] flex flex-row md1368:flex-col justify-start items-start p-4 relative">
           <Sidebar
             sessions={sessions}
             currentSessionId={currentSessionId}
@@ -198,14 +231,14 @@ export default function Home() {
           setToken={setToken}
           setClientId={setClientId}
           setClientName={setClientName}
-          setShowLogin={setShowLogin} // Pass the function to toggle to Register
+          setShowLogin={setShowLogin}
         />
       ) : (
         <Register
           setToken={setToken}
           setClientId={setClientId}
           setClientName={setClientName}
-          setShowLogin={setShowLogin} // Pass the function to toggle back to Login
+          setShowLogin={setShowLogin}
         />
       )}
     </>

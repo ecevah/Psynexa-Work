@@ -21,7 +21,7 @@ const ProfileButton = ({ text, onLogout }) => {
           />
           <div className="ml-[10px]">{text}</div>
         </div>
-        <IoExitOutline size={25} className="mr-[0px]" />
+        <IoExitOutline size={25} className="mr-[0px]" color="#ff6961" />
       </div>
     </>
   );

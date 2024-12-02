@@ -49,6 +49,7 @@ const MessagesContent = ({ messages, token, clientId }) => {
                 messageId={group.botMessage.messageId}
                 token={token}
                 clientId={clientId}
+                feedback={group.botMessage.feedback}
               />
             )}
           </div>

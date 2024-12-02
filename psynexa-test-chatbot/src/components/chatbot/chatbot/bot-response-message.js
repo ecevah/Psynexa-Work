@@ -1,9 +1,9 @@
 // components/chatbot/bot-response-message.js
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { AiOutlineLike } from "react-icons/ai";
 import { IoArrowForwardCircleOutline } from "react-icons/io5";
 import { LuCopy } from "react-icons/lu";
-import { IoMdMore, IoMdCheckmark } from "react-icons/io";
+import { IoMdCheckmark } from "react-icons/io";
 import axios from "axios";
 import { HOST_NAME } from "@/config/config";
 
@@ -13,25 +13,66 @@ const BotResponseMessage = ({
   token,
   sessionId,
   clientId,
+  feedback, // { status: true/false, desc: "", _id: "feedbackId" } or null
+  onFeedbackUpdate, // Callback to refetch messages
 }) => {
-  const [enableClick, setEnableClick] = useState(true);
-  const [dislike, setDislike] = useState(false);
   const [like, setLike] = useState(false);
+  const [dislike, setDislike] = useState(false);
   const [isCopy, setIsCopy] = useState(false);
   const [showCommentBox, setShowCommentBox] = useState(false);
   const [comment, setComment] = useState("");
 
+  useEffect(() => {
+    if (feedback) {
+      if (feedback.status === true) {
+        setLike(true);
+        setDislike(false);
+      } else if (feedback.status === false) {
+        setLike(false);
+        setDislike(true);
+        setShowCommentBox(true);
+        setComment(feedback.desc || "");
+      }
+    } else {
+      setLike(false);
+      setDislike(false);
+      setShowCommentBox(false);
+      setComment("");
+    }
+  }, [feedback]);
+
   const handleLike = async () => {
-    setLike(true);
-    setDislike(false);
-    setEnableClick(false);
-    await sendFeedback(true, "");
+    if (feedback) return; // Prevent changes if feedback exists
+
+    try {
+      await sendFeedback(true, ""); // Send like without comment
+      setLike(true);
+      if (onFeedbackUpdate) onFeedbackUpdate(); // Refetch messages
+    } catch (error) {
+      console.error("Error sending like feedback:", error);
+    }
   };
 
   const handleDislike = () => {
+    if (feedback) return; // Prevent changes if feedback exists
+
     setDislike(true);
-    setLike(false);
     setShowCommentBox(true);
+  };
+
+  const handleSubmitDislike = async () => {
+    if (comment.trim() === "") {
+      alert("Lütfen yorumunuzu girin."); // "Please enter your comment."
+      return;
+    }
+
+    try {
+      await sendFeedback(false, comment);
+      setShowCommentBox(false);
+      if (onFeedbackUpdate) onFeedbackUpdate(); // Refetch messages
+    } catch (error) {
+      console.error("Error sending dislike feedback:", error);
+    }
   };
 
   const handleCopy = () => {
@@ -42,30 +83,43 @@ const BotResponseMessage = ({
     }, 1000);
   };
 
-  const handleSubmitComment = async () => {
-    await sendFeedback(false, comment);
-    setEnableClick(false);
-    setShowCommentBox(false);
-    setComment("");
-  };
-
   const sendFeedback = async (status, desc) => {
     try {
-      await axios.post(
-        `${HOST_NAME}/feedback`,
-        {
-          message_id: messageId,
-          status: status,
-          desc: desc,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
+      if (!feedback) {
+        // Create new feedback
+        await axios.post(
+          `${HOST_NAME}/feedback`,
+          {
+            message_id: messageId,
+            status: status,
+            desc: desc,
           },
-        }
-      );
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      } else if (feedback._id) {
+        // Update existing feedback
+        await axios.put(
+          `${HOST_NAME}/feedback/${feedback._id}`,
+          {
+            status: status,
+            desc: desc,
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+      } else {
+        console.error("Güncellenecek geri bildirim kaydı bulunamadı.");
+      }
     } catch (error) {
       console.error("Error sending feedback:", error);
+      throw error; // Re-throw to handle in caller
     }
   };
 
@@ -86,25 +140,35 @@ const BotResponseMessage = ({
       </div>
       <div className="flex flex-row mt-[30px]">
         <div className="flex flex-row px-[15px] py-[8px] rounded-full bg-white w-fit">
+          {/* Like Button */}
           <AiOutlineLike
-            onClick={enableClick ? handleLike : null}
+            onClick={handleLike}
             size={18}
-            className="mr-[5px] cursor-pointer"
+            className={`mr-[5px] cursor-pointer ${
+              feedback ? "cursor-default" : ""
+            }`}
             color={like ? "#30db5b" : "#999A9C"}
+            title="Beğen"
           />
           <div className="bg-[#999A9C] w-[1px] h-[17px] mt-[1px] mx-[5px]"></div>
+          {/* Dislike Button */}
           <AiOutlineLike
-            onClick={enableClick ? handleDislike : null}
+            onClick={handleDislike}
             size={18}
-            className="mr-[5px] cursor-pointer rotate-180"
+            className={`mr-[5px] cursor-pointer rotate-180 ${
+              feedback ? "cursor-default" : ""
+            }`}
             color={dislike ? "#ff6961" : "#999A9C"}
+            title="Beğenme"
           />
           <div className="bg-[#999A9C] w-[1px] h-[17px] mt-[1px] mx-[5px]"></div>
+          {/* Copy Button */}
           {isCopy ? (
             <IoMdCheckmark
               size={18}
-              className="mr-[5px] cursor-pointer rotate-270"
+              className="mr-[5px] cursor-default rotate-270"
               color="#999A9C"
+              title="Kopyalandı!"
             />
           ) : (
             <LuCopy
@@ -112,14 +176,16 @@ const BotResponseMessage = ({
               size={18}
               className="mr-[5px] cursor-pointer rotate-270"
               color="#999A9C"
+              title="Kopyala"
             />
           )}
         </div>
         <div className="p-[8px] bg-white rounded-full ml-[20px] hidden">
-          <IoMdMore size={18} color="#999A9C" className="cursor-pointer" />
+          {/* Eğer gerekirse ekleyebilirsiniz */}
         </div>
       </div>
 
+      {/* Comment Box for Dislike */}
       {showCommentBox && (
         <div className="mt-4">
           <textarea
@@ -129,7 +195,7 @@ const BotResponseMessage = ({
             className="w-full p-2 bg-transparent border-[1px] border-[#0a6fbd8d] rounded-[20px]"
           ></textarea>
           <button
-            onClick={handleSubmitComment}
+            onClick={handleSubmitDislike}
             className="mt-2 px-4 py-2 bg-[#0A6EBD] hover:bg-[#326d9b] text-white rounded-full"
           >
             Gönder
