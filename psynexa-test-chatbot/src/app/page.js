@@ -18,6 +18,10 @@ export default function Home() {
   const [showLogin, setShowLogin] = useState(true);
 
   useEffect(() => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("clientId");
+    localStorage.removeItem("clientName");
+    
     if (typeof window !== "undefined") {
       const storedToken = localStorage.getItem("token");
       const storedClientId = localStorage.getItem("clientId");
