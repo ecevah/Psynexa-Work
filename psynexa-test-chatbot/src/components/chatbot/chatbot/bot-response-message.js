@@ -27,10 +27,11 @@ const BotResponseMessage = ({
       if (feedback.status === true) {
         setLike(true);
         setDislike(false);
+        setShowCommentBox(false);
       } else if (feedback.status === false) {
         setLike(false);
         setDislike(true);
-        setShowCommentBox(true);
+        setShowCommentBox(false); // Yorum bölümü görünmesin
         setComment(feedback.desc || "");
       }
     } else {
@@ -42,34 +43,34 @@ const BotResponseMessage = ({
   }, [feedback]);
 
   const handleLike = async () => {
-    if (feedback) return; // Prevent changes if feedback exists
+    if (feedback) return; // Eğer feedback varsa değişiklik yapma
 
     try {
-      await sendFeedback(true, ""); // Send like without comment
+      await sendFeedback(true, ""); // Yorum olmadan like gönder
       setLike(true);
-      if (onFeedbackUpdate) onFeedbackUpdate(); // Refetch messages
+      if (onFeedbackUpdate) onFeedbackUpdate(); // Mesajları yeniden al
     } catch (error) {
       console.error("Error sending like feedback:", error);
     }
   };
 
   const handleDislike = () => {
-    if (feedback) return; // Prevent changes if feedback exists
+    if (feedback) return; // Eğer feedback varsa değişiklik yapma
 
     setDislike(true);
-    setShowCommentBox(true);
+    setShowCommentBox(true); // Yorum kutusunu göster
   };
 
   const handleSubmitDislike = async () => {
     if (comment.trim() === "") {
-      alert("Lütfen yorumunuzu girin."); // "Please enter your comment."
+      alert("Lütfen yorumunuzu girin.");
       return;
     }
 
     try {
       await sendFeedback(false, comment);
       setShowCommentBox(false);
-      if (onFeedbackUpdate) onFeedbackUpdate(); // Refetch messages
+      if (onFeedbackUpdate) onFeedbackUpdate(); // Mesajları yeniden al
     } catch (error) {
       console.error("Error sending dislike feedback:", error);
     }
@@ -86,7 +87,7 @@ const BotResponseMessage = ({
   const sendFeedback = async (status, desc) => {
     try {
       if (!feedback) {
-        // Create new feedback
+        // Yeni feedback oluştur
         await axios.post(
           `${HOST_NAME}/feedback`,
           {
@@ -100,26 +101,12 @@ const BotResponseMessage = ({
             },
           }
         );
-      } else if (feedback._id) {
-        // Update existing feedback
-        await axios.put(
-          `${HOST_NAME}/feedback/${feedback._id}`,
-          {
-            status: status,
-            desc: desc,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
       } else {
-        console.error("Güncellenecek geri bildirim kaydı bulunamadı.");
+        console.error("Feedback zaten mevcut, yeni feedback gönderilemez.");
       }
     } catch (error) {
       console.error("Error sending feedback:", error);
-      throw error; // Re-throw to handle in caller
+      throw error; // Hata fırlat, çağıran fonksiyonda işlenecek
     }
   };
 
@@ -140,29 +127,29 @@ const BotResponseMessage = ({
       </div>
       <div className="flex flex-row mt-[30px]">
         <div className="flex flex-row px-[15px] py-[8px] rounded-full bg-white w-fit">
-          {/* Like Button */}
+          {/* Like Butonu */}
           <AiOutlineLike
             onClick={handleLike}
             size={18}
-            className={`mr-[5px] cursor-pointer ${
-              feedback ? "cursor-default" : ""
+            className={`mr-[5px] ${
+              feedback ? "cursor-default" : "cursor-pointer"
             }`}
             color={like ? "#30db5b" : "#999A9C"}
             title="Beğen"
           />
           <div className="bg-[#999A9C] w-[1px] h-[17px] mt-[1px] mx-[5px]"></div>
-          {/* Dislike Button */}
+          {/* Dislike Butonu */}
           <AiOutlineLike
             onClick={handleDislike}
             size={18}
-            className={`mr-[5px] cursor-pointer rotate-180 ${
-              feedback ? "cursor-default" : ""
+            className={`mr-[5px] rotate-180 ${
+              feedback ? "cursor-default" : "cursor-pointer"
             }`}
             color={dislike ? "#ff6961" : "#999A9C"}
             title="Beğenme"
           />
           <div className="bg-[#999A9C] w-[1px] h-[17px] mt-[1px] mx-[5px]"></div>
-          {/* Copy Button */}
+          {/* Kopyala Butonu */}
           {isCopy ? (
             <IoMdCheckmark
               size={18}
@@ -185,7 +172,7 @@ const BotResponseMessage = ({
         </div>
       </div>
 
-      {/* Comment Box for Dislike */}
+      {/* Yorum Kutusu */}
       {showCommentBox && (
         <div className="mt-4">
           <textarea

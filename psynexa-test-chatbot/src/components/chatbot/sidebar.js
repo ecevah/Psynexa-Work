@@ -22,11 +22,15 @@ export const Sidebar = ({
 
   const sessionListRef = useRef(null);
 
+  // useEffect'i kaldırıyoruz veya değiştirebiliriz
+  // Böylece liste her zaman en üstte kalır
+  /*
   useEffect(() => {
     if (sessionListRef.current) {
       sessionListRef.current.scrollTop = sessionListRef.current.scrollHeight;
     }
   }, [sessions]);
+  */
 
   return (
     <>
