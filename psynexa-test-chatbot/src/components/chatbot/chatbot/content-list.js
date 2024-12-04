@@ -16,7 +16,7 @@ const ContentList = ({ messages, token, clientId }) => {
 
   return (
     <>
-      <div className="w-full h-full pb-[77px] z-10 flex flex-col items-center">
+      <div className="w-full flex flex-col flex-grow z-10 items-center">
         <Image
           src="/nexa-bot-logo.svg"
           width={150}
@@ -25,7 +25,7 @@ const ContentList = ({ messages, token, clientId }) => {
           className="md1368:block hidden mb-[10px]"
         />
         <div
-          className="w-full max-w-[1000px] h-full flex flex-col py-[15px] overflow-y-scroll scrollHidden px-4"
+          className="w-full max-w-[1000px] flex flex-col py-[15px] overflow-y-auto scrollHidden px-4"
           style={{ scrollBehavior: "smooth" }}
         >
           <MessagesContent

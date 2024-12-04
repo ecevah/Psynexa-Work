@@ -176,15 +176,18 @@ const ChatBot = ({
 
   return (
     <>
-      <div className="w-full h-full flex items-center justify-center relative z-10">
-        <div className="w-full h-[150px] absolute bgWhiteToTransparentUpChatbot bottom-0 z-0"></div>
+      <div className="w-full h-full flex flex-col relative z-10 overflow-hidden">
+        <div className="w-full h-[200px] absolute bgWhiteToTransparentUpChatbot bottom-0 z-0"></div>
+
+        <div className="flex-grow overflow-y-auto scrollHidden">
+          <ContentList
+            messages={currentSession.messages}
+            token={token}
+            clientId={clientId}
+            refreshMessages={handleFeedbackChange}
+          />
+        </div>
         <SearchInput onSendMessage={handleSendMessage} loading={loading} />
-        <ContentList
-          messages={currentSession.messages}
-          token={token}
-          clientId={clientId}
-          refreshMessages={handleFeedbackChange} // Geri bildirim değiştiğinde mesajları yenile
-        />
       </div>
     </>
   );

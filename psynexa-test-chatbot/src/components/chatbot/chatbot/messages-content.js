@@ -30,11 +30,11 @@ const MessagesContent = ({ messages, token, clientId }) => {
 
   return (
     <>
-      <div className="flex flex-col h-fit mb-[20px]">
+      <div className="flex flex-col mb-[20px]">
         {messageGroups.map((group, index) => (
           <div
             key={index}
-            className={`flex flex-col pl-[50px] py-[30px] ${
+            className={`flex flex-col md:px-[50px] py-[30px] ${
               index !== messageGroups.length - 1
                 ? "border-b-[1px] border-b-solid border-b-[#999a9c88]"
                 : ""
@@ -49,7 +49,6 @@ const MessagesContent = ({ messages, token, clientId }) => {
                 messageId={group.botMessage.messageId}
                 token={token}
                 clientId={clientId}
-                feedback={group.botMessage.feedback}
               />
             )}
           </div>
