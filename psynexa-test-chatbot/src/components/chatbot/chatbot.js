@@ -20,6 +20,10 @@ const ChatBot = ({
     (session) => session.id === currentSessionId
   );
 
+  if (!currentSession) {
+    return <div>Loading session...</div>;
+  }
+
   useEffect(() => {
     if (currentSession.backendSessionId) {
       fetchMessages(currentSession.backendSessionId);
@@ -180,12 +184,16 @@ const ChatBot = ({
         <div className="w-full h-[200px] absolute bgWhiteToTransparentUpChatbot bottom-0 z-0"></div>
 
         <div className="flex-grow overflow-y-auto scrollHidden">
-          <ContentList
-            messages={currentSession.messages}
-            token={token}
-            clientId={clientId}
-            refreshMessages={handleFeedbackChange}
-          />
+          {currentSession ? (
+            <ContentList
+              messages={currentSession.messages}
+              token={token}
+              clientId={clientId}
+              refreshMessages={handleFeedbackChange}
+            />
+          ) : (
+            <div>Loading session...</div>
+          )}
         </div>
         <SearchInput onSendMessage={handleSendMessage} loading={loading} />
       </div>

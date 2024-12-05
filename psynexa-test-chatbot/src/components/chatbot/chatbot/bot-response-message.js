@@ -1,4 +1,3 @@
-// components/chatbot/bot-response-message.js
 import React, { useState, useEffect } from "react";
 import { AiOutlineLike } from "react-icons/ai";
 import { IoArrowForwardCircleOutline } from "react-icons/io5";
@@ -6,6 +5,7 @@ import { LuCopy } from "react-icons/lu";
 import { IoMdCheckmark } from "react-icons/io";
 import axios from "axios";
 import { HOST_NAME } from "@/config/config";
+import { markdown } from "markdown";
 
 const BotResponseMessage = ({
   text = "",
@@ -122,9 +122,10 @@ const BotResponseMessage = ({
           color="#0A6EBD"
         />
       </div>
-      <div className="mt-2 text-[16px] font-normal text-black md1368:text-sm">
-        {text}
-      </div>
+      <div
+        className="mt-2 text-[16px] font-normal text-black md1368:text-sm"
+        dangerouslySetInnerHTML={{ __html: markdown.toHTML(text) }}
+      ></div>
       <div className="flex flex-row mt-[30px]">
         <div className="flex flex-row px-[15px] py-[8px] rounded-full bg-white w-fit">
           {/* Like Butonu */}

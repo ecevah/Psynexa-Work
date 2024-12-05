@@ -24,12 +24,12 @@ const Register = ({ setToken, setClientId, setClientName, setShowLogin }) => {
       const response = await axios.post(`${HOST_NAME}/register`, {
         name,
         mail,
-        username, // Include if your backend requires it
+        username,
+        language: "Turkish",
         password,
       });
 
       if (response.data.status) {
-        // Automatically log in the user after successful registration
         await handleLogin();
       } else {
         setError("Kayıt başarısız");
