@@ -5,14 +5,16 @@ import axios from "axios";
 import { HOST_NAME } from "@/config/config";
 import Image from "next/image";
 import { LOGO } from "@/config/svg";
+import { AiOutlineLoading3Quarters } from "react-icons/ai";
 
 const Register = ({ setToken, setClientId, setClientName, setShowLogin }) => {
   const [name, setName] = useState("");
   const [mail, setMail] = useState("");
-  const [username, setUsername] = useState(""); // If needed
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleRegister = async () => {
     if (password !== confirmPassword) {
@@ -20,6 +22,8 @@ const Register = ({ setToken, setClientId, setClientName, setShowLogin }) => {
       return;
     }
 
+    setLoading(true);
+    setError("");
     try {
       const response = await axios.post(`${HOST_NAME}/register`, {
         name,
@@ -37,10 +41,14 @@ const Register = ({ setToken, setClientId, setClientName, setShowLogin }) => {
     } catch (error) {
       console.error("Error during registration:", error);
       setError("Kayıt sırasında bir hata oluştu.");
+    } finally {
+      setLoading(false);
     }
   };
 
   const handleLogin = async () => {
+    setLoading(true);
+    setError("");
     try {
       const response = await axios.post(`${HOST_NAME}/login`, {
         mail,
@@ -61,6 +69,14 @@ const Register = ({ setToken, setClientId, setClientName, setShowLogin }) => {
     } catch (error) {
       console.error("Error during login after registration:", error);
       setError("Login failed after registration");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleRegister();
     }
   };
 
@@ -73,8 +89,7 @@ const Register = ({ setToken, setClientId, setClientName, setShowLogin }) => {
         className="mx-auto mb-[20px]"
         alt="logo"
       />
-      <div className="register-container">
-        {/* Your register form here */}
+      <div className="register-container" onKeyDown={handleKeyDown}>
         <h2>Kayıt Ol</h2>
         <input
           type="text"
@@ -88,7 +103,6 @@ const Register = ({ setToken, setClientId, setClientName, setShowLogin }) => {
           onChange={(e) => setMail(e.target.value)}
           placeholder="E-posta"
         />
-        {/* Include username field if required */}
         <input
           type="text"
           value={username}
@@ -108,7 +122,22 @@ const Register = ({ setToken, setClientId, setClientName, setShowLogin }) => {
           placeholder="Şifre Tekrar"
         />
         <div className="text-center mb-[10px] text-red-600">{error}</div>
-        <button onClick={handleRegister}>Kayıt Ol</button>
+        <button
+          onClick={handleRegister}
+          disabled={loading}
+          className={`flex items-center justify-center ${
+            loading ? "bg-gray-400 cursor-not-allowed" : "bg-[#0A6EBD]"
+          } text-white rounded-full px-4 py-2`}
+        >
+          {loading ? (
+            <AiOutlineLoading3Quarters
+              className="animate-spin text-white"
+              size={20}
+            />
+          ) : (
+            "Kayıt Ol"
+          )}
+        </button>
         <p>
           Zaten hesabınız var mı?{" "}
           <span onClick={() => setShowLogin(true)} className="link">

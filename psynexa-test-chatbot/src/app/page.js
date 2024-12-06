@@ -18,10 +18,6 @@ export default function Home() {
   const [showLogin, setShowLogin] = useState(true);
 
   useEffect(() => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("clientId");
-    localStorage.removeItem("clientName");
-
     if (typeof window !== "undefined") {
       const storedToken = localStorage.getItem("token");
       const storedClientId = localStorage.getItem("clientId");
@@ -194,17 +190,34 @@ export default function Home() {
     if (!session_id || !client_id || !token) return;
     const payload = { session_id, client_id };
 
-    // fetch ile istek atarken keepalive: true kullanıyoruz.
-    // Bu sayede sayfa kapanırken bile istek gönderilmeye çalışılır.
     try {
-      await fetch(`${HOST_NAME}/end_session`, {
+      await fetch(`${HOST_NAME}/update_memory`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // Token'ı ekliyoruz
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(payload),
-        keepalive: true, // Sayfa kapansa bile isteğin gönderilmeye çalışmasını sağlar
+        keepalive: true,
+      });
+    } catch (error) {
+      console.error("Error ending session:", error);
+    }
+  };
+
+  const logOut = async (client_id) => {
+    if (!client_id || !token) return;
+    const payload = { client_id };
+
+    try {
+      await fetch(`${HOST_NAME}/signout`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+        body: JSON.stringify(payload),
+        keepalive: true,
       });
     } catch (error) {
       console.error("Error ending session:", error);
@@ -212,8 +225,7 @@ export default function Home() {
   };
 
   const handleLogout = async () => {
-    // Çıkış yaparken end_session'i tetikle
-    await endSession(currentSessionId, clientId);
+    await logOut(clientId);
 
     localStorage.clear();
     setToken(null);
