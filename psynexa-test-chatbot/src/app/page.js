@@ -190,13 +190,51 @@ export default function Home() {
     });
   };
 
-  const handleLogout = () => {
+  const endSession = async (session_id, client_id) => {
+    if (!session_id || !client_id || !token) return;
+    const payload = { session_id, client_id };
+
+    // fetch ile istek atarken keepalive: true kullanıyoruz.
+    // Bu sayede sayfa kapanırken bile istek gönderilmeye çalışılır.
+    try {
+      await fetch(`${HOST_NAME}/end_session`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`, // Token'ı ekliyoruz
+        },
+        body: JSON.stringify(payload),
+        keepalive: true, // Sayfa kapansa bile isteğin gönderilmeye çalışmasını sağlar
+      });
+    } catch (error) {
+      console.error("Error ending session:", error);
+    }
+  };
+
+  const handleLogout = async () => {
+    // Çıkış yaparken end_session'i tetikle
+    await endSession(currentSessionId, clientId);
+
     localStorage.clear();
     setToken(null);
     setClientId(null);
     setClientName("");
     setIsAuthenticated(false);
   };
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const handleBeforeUnload = () => {
+        endSession(currentSessionId, clientId);
+      };
+
+      window.addEventListener("beforeunload", handleBeforeUnload);
+
+      return () => {
+        window.removeEventListener("beforeunload", handleBeforeUnload);
+      };
+    }
+  }, [currentSessionId, clientId, token]);
 
   return (
     <>
