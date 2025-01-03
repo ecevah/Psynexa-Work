@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Audio WebSocket - İki Yönlü Ses</title>
+    <style>
+        .controls {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+        button {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .recording {
+            background-color: red;
+            color: white;
+        }
+        .audio-displays {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px;
+        }
+        .audio-display {
+            border: 1px solid #ddd;
+            padding: 15px;
+            width: 45%;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button id="startButton">Kaydı Başlat</button>
+        <button id="stopButton" disabled>Kaydı Durdur</button>
+        <div id="status">Bağlantı bekleniyor...</div>
+    </div>
+
+    <div class="audio-displays">
+        <div class="audio-display">
+            <h3>Gönderilen Ses</h3>
+            <audio id="localAudio" controls></audio>
+            <div id="localStatus">Ses bekleniyor...</div>
+        </div>
+        <div class="audio-display">
+            <h3>Alınan Ses</h3>
+            <audio id="remoteAudio" controls></audio>
+            <div id="remoteStatus">Ses bekleniyor...</div>
+        </div>
+    </div>
+
+    <script>
+        let ws;
+        let mediaRecorder;
+        let isRecording = false;
+        
+        const startButton = document.getElementById('startButton');
+        const stopButton = document.getElementById('stopButton');
+        const status = document.getElementById('status');
+        const localAudio = document.getElementById('localAudio');
+        const remoteAudio = document.getElementById('remoteAudio');
+        const localStatus = document.getElementById('localStatus');
+        const remoteStatus = document.getElementById('remoteStatus');
+
+        function initWebSocket() {
+            ws = new WebSocket('ws://localhost:8000/audio-ws');
+            
+            ws.onopen = () => {
+                status.textContent = 'WebSocket bağlantısı kuruldu';
+                startButton.disabled = false;
+            };
+            
+            ws.onclose = () => {
+                status.textContent = 'WebSocket bağlantısı kapandı';
+                startButton.disabled = true;
+                stopButton.disabled = true;
+            };
+            
+            ws.onmessage = (event) => {
+                remoteStatus.textContent = 'Ses alındı';
+                remoteAudio.src = event.data;
+            };
+        }
+
+        async function startRecording() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                mediaRecorder = new MediaRecorder(stream, {
+                    mimeType: 'audio/webm;codecs=opus'
+                });
+                
+                let chunks = [];
+                
+                mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        chunks.push(event.data);
+                        
+                        // Lokal ses için blob oluştur
+                        const blob = new Blob(chunks, { type: 'audio/webm' });
+                        const localUrl = URL.createObjectURL(blob);
+                        localAudio.src = localUrl;
+                        localStatus.textContent = 'Ses kaydediliyor...';
+
+                        // WebSocket üzerinden gönder
+                        const reader = new FileReader();
+                        reader.onloadend = () => {
+                            if (ws.readyState === WebSocket.OPEN) {
+                                ws.send(reader.result);
+                            }
+                        };
+                        reader.readAsDataURL(blob);
+                    }
+                };
+
+                mediaRecorder.onstop = () => {
+                    chunks = [];
+                    localStatus.textContent = 'Kayıt tamamlandı';
+                };
+
+                mediaRecorder.start(1000); // Her 1 saniyede bir veri gönder
+                isRecording = true;
+                startButton.classList.add('recording');
+                startButton.disabled = true;
+                stopButton.disabled = false;
+                status.textContent = 'Kayıt yapılıyor...';
+                
+            } catch (err) {
+                console.error('Mikrofon erişim hatası:', err);
+                status.textContent = 'Mikrofon erişimi reddedildi';
+            }
+        }
+
+        function stopRecording() {
+            if (mediaRecorder && isRecording) {
+                mediaRecorder.stop();
+                isRecording = false;
+                startButton.classList.remove('recording');
+                startButton.disabled = false;
+                stopButton.disabled = true;
+                status.textContent = 'Kayıt durdu';
+            }
+        }
+
+        startButton.onclick = startRecording;
+        stopButton.onclick = stopRecording;
+        
+        // Sayfa yüklendiğinde WebSocket bağlantısını başlat
+        initWebSocket();
+
+        // Ses oynatıcıları için hata yönetimi
+        localAudio.onerror = (e) => console.error('Lokal ses hatası:', e);
+        remoteAudio.onerror = (e) => console.error('Uzak ses hatası:', e);
+    </script>
+</body>
+</html> 

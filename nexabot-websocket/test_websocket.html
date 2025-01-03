@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WebSocket Test</title>
+</head>
+<body>
+    <h1>WebSocket Test</h1>
+    <input type="text" id="messageInput" placeholder="Mesajınızı yazın...">
+    <button onclick="sendMessage()">Gönder</button>
+    <div id="messages"></div>
+
+    <script>
+        const ws = new WebSocket('ws://localhost:8000/ws');
+        const messagesDiv = document.getElementById('messages');
+        
+        ws.onopen = function() {
+            console.log('WebSocket bağlantısı açıldı');
+            appendMessage('Bağlantı kuruldu');
+        };
+        
+        ws.onmessage = function(event) {
+            appendMessage('Sunucudan: ' + event.data);
+        };
+        
+        ws.onclose = function() {
+            appendMessage('Bağlantı kapandı');
+        };
+        
+        function sendMessage() {
+            const input = document.getElementById('messageInput');
+            const message = input.value;
+            ws.send(message);
+            appendMessage('Gönderilen: ' + message);
+            input.value = '';
+        }
+        
+        function appendMessage(message) {
+            const messageElement = document.createElement('div');
+            messageElement.textContent = message;
+            messagesDiv.appendChild(messageElement);
+        }
+    </script>
+</body>
+</html> 

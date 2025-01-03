@@ -20,12 +20,9 @@ const ChatBot = ({
     (session) => session.id === currentSessionId
   );
 
-  if (!currentSession) {
-    return <div>Loading session...</div>;
-  }
-
+  // Ensure that useEffect is called unconditionally
   useEffect(() => {
-    if (currentSession.backendSessionId) {
+    if (currentSession && currentSession.backendSessionId) {
       fetchMessages(currentSession.backendSessionId);
     }
   }, [currentSessionId]);

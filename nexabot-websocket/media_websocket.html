@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Ses ve Fotoğraf WebSocket</title>
+    <style>
+        .controls {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+        }
+        .media-displays {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px;
+        }
+        .media-display {
+            border: 1px solid #ddd;
+            padding: 15px;
+            width: 45%;
+        }
+        button {
+            padding: 10px;
+            margin: 5px;
+            cursor: pointer;
+        }
+        .recording {
+            background-color: red;
+            color: white;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        .camera-preview {
+            width: 100%;
+            max-width: 640px;
+            background-color: #f0f0f0;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button id="startAudioButton">Ses Kaydını Başlat</button>
+        <button id="stopAudioButton" disabled>Ses Kaydını Durdur</button>
+        <button id="capturePhotoButton">Fotoğraf Çek</button>
+        <button id="sendMediaButton" disabled>Gönder</button>
+        <div id="status">Bağlantı bekleniyor...</div>
+    </div>
+
+    <div class="media-displays">
+        <div class="media-display">
+            <h3>Gönderilen Medya</h3>
+            <video id="cameraPreview" class="camera-preview" autoplay muted playsinline></video>
+            <canvas id="photoCanvas" style="display:none;"></canvas>
+            <img id="capturedPhoto" style="display:none;">
+            <audio id="localAudio" controls style="display:none;"></audio>
+            <div id="localStatus">Hazır...</div>
+        </div>
+        <div class="media-display">
+            <h3>Alınan Medya</h3>
+            <img id="receivedPhoto">
+            <audio id="receivedAudio" controls></audio>
+            <div id="remoteStatus">Bekleniyor...</div>
+        </div>
+    </div>
+
+    <script>
+        let ws;
+        let mediaRecorder;
+        let audioChunks = [];
+        let photoBase64 = null;
+        let stream;
+        
+        const startAudioButton = document.getElementById('startAudioButton');
+        const stopAudioButton = document.getElementById('stopAudioButton');
+        const capturePhotoButton = document.getElementById('capturePhotoButton');
+        const sendMediaButton = document.getElementById('sendMediaButton');
+        const status = document.getElementById('status');
+        const localStatus = document.getElementById('localStatus');
+        const remoteStatus = document.getElementById('remoteStatus');
+        const cameraPreview = document.getElementById('cameraPreview');
+        const photoCanvas = document.getElementById('photoCanvas');
+        const capturedPhoto = document.getElementById('capturedPhoto');
+        const localAudio = document.getElementById('localAudio');
+        const receivedPhoto = document.getElementById('receivedPhoto');
+        const receivedAudio = document.getElementById('receivedAudio');
+
+        async function initCamera() {
+            try {
+                stream = await navigator.mediaDevices.getUserMedia({ 
+                    video: { width: 640, height: 480 },
+                    audio: false
+                });
+                cameraPreview.srcObject = stream;
+            } catch (err) {
+                console.error('Kamera erişim hatası:', err);
+                localStatus.textContent = 'Kamera erişimi reddedildi';
+            }
+        }
+
+        function initWebSocket() {
+            ws = new WebSocket('ws://localhost:8000/media-ws');
+            
+            ws.onopen = () => {
+                status.textContent = 'WebSocket bağlantısı kuruldu';
+                startAudioButton.disabled = false;
+                capturePhotoButton.disabled = false;
+            };
+            
+            ws.onclose = () => {
+                status.textContent = 'WebSocket bağlantısı kapandı';
+            };
+            
+            ws.onmessage = (event) => {
+                const data = JSON.parse(event.data);
+                
+                // Alınan fotoğrafı göster
+                if (data.photo) {
+                    receivedPhoto.src = data.photo;
+                }
+                
+                // Alınan sesi çal
+                if (data.audio) {
+                    receivedAudio.src = data.audio;
+                }
+                
+                remoteStatus.textContent = 'Medya alındı';
+            };
+        }
+
+        async function startAudioRecording() {
+            try {
+                const audioStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                audioChunks = [];
+                mediaRecorder = new MediaRecorder(audioStream);
+                
+                mediaRecorder.ondataavailable = (event) => {
+                    audioChunks.push(event.data);
+                };
+                
+                mediaRecorder.onstop = async () => {
+                    const audioBlob = new Blob(audioChunks, { type: 'audio/webm' });
+                    localAudio.src = URL.createObjectURL(audioBlob);
+                    localAudio.style.display = 'block';
+                    
+                    // Base64'e çevir
+                    const reader = new FileReader();
+                    reader.onloadend = () => {
+                        const base64Audio = reader.result;
+                        if (photoBase64) {
+                            sendMediaButton.disabled = false;
+                        }
+                    };
+                    reader.readAsDataURL(audioBlob);
+                };
+
+                mediaRecorder.start();
+                startAudioButton.disabled = true;
+                stopAudioButton.disabled = false;
+                localStatus.textContent = 'Ses kaydediliyor...';
+                
+            } catch (err) {
+                console.error('Mikrofon erişim hatası:', err);
+                localStatus.textContent = 'Mikrofon erişimi reddedildi';
+            }
+        }
+
+        function stopAudioRecording() {
+            if (mediaRecorder && mediaRecorder.state !== 'inactive') {
+                mediaRecorder.stop();
+                mediaRecorder.stream.getTracks().forEach(track => track.stop());
+                stopAudioButton.disabled = true;
+                localStatus.textContent = 'Ses kaydı tamamlandı';
+            }
+        }
+
+        function capturePhoto() {
+            photoCanvas.width = cameraPreview.videoWidth;
+            photoCanvas.height = cameraPreview.videoHeight;
+            photoCanvas.getContext('2d').drawImage(cameraPreview, 0, 0);
+            
+            photoBase64 = photoCanvas.toDataURL('image/jpeg');
+            capturedPhoto.src = photoBase64;
+            capturedPhoto.style.display = 'block';
+            cameraPreview.style.display = 'none';
+            
+            if (localAudio.src) {
+                sendMediaButton.disabled = false;
+            }
+            
+            localStatus.textContent = 'Fotoğraf çekildi';
+        }
+
+        function sendMedia() {
+            if (ws.readyState === WebSocket.OPEN) {
+                const mediaData = {
+                    photo: photoBase64,
+                    audio: localAudio.src
+                };
+                ws.send(JSON.stringify(mediaData));
+                sendMediaButton.disabled = true;
+                localStatus.textContent = 'Medya gönderildi';
+            }
+        }
+
+        startAudioButton.onclick = startAudioRecording;
+        stopAudioButton.onclick = stopAudioRecording;
+        capturePhotoButton.onclick = capturePhoto;
+        sendMediaButton.onclick = sendMedia;
+
+        // Başlangıç
+        initWebSocket();
+        initCamera();
+    </script>
+</body>
+</html> 
